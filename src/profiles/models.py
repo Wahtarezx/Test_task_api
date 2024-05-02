@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 
 class Freelancer(models.Model):
     """Модель фрилансера(исполнителя заказов)"""
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='freelancer', on_delete=models.CASCADE)
     cost_of_work = models.PositiveIntegerField(verbose_name='The cost of work', blank=False, null=False, default=0)
     experience = models.CharField(
         max_length=50, verbose_name='Work experience', blank=False, null=False, default='No experience'
@@ -36,7 +36,7 @@ class Freelancer(models.Model):
 
 class Customer(models.Model):
     """Модель заказчика"""
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='customer', on_delete=models.CASCADE)
     payment = models.PositiveIntegerField(verbose_name='Minimal payment for work', blank=False, null=False, default=0)
     experience = models.CharField(
         max_length=50, verbose_name='Work experience', blank=False, null=False, default='No experience'

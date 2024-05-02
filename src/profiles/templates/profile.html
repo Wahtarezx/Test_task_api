@@ -1,0 +1,123 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Dashboard</h1>
+<div>
+    <button id="freelancerBtn">Фрилансер</button>
+    <button id="clientBtn">Заказчик</button>
+</div>
+<div id="userInfo" style="margin-top: 20px;">
+    <!-- Информация о пользователе будет отображаться здесь -->
+</div>
+
+<script>
+    let userId = "{{ pk }}";
+
+    $(document).ready(function () {
+        $('#freelancerBtn').click(function () {
+            getUserInfo('freelancer');
+        });
+
+        $('#clientBtn').click(function () {
+            getUserInfo('customer');
+        });
+
+        function getUserInfo(type) {
+            $.ajax({
+                url: `/api/v1/${type}/${userId}/`,
+                method: 'GET',
+                success: function (data) {
+                   $('#userInfo').html('');
+                        // В зависимости от типа профиля, используйте соответствующие поля
+                        if (type === 'freelancer') {
+                            $('#userInfo').append(
+                                `<p>Username: ${data[0].user.username ? data[0].user.username : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>First name: ${data[0].user.first_name ? data[0].user.first_name : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Last name: ${data[0].user.last_name ? data[0].user.last_name : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Email: ${data[0].user.email ? data[0].user.email : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Cost of Work: ${data[0].cost_of_work ? data[0].cost_of_work : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Experience: ${data[0].experience ? data[0].experience : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Contact Phone: ${data[0].contact_phone ? data[0].contact_phone : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Ownership form: ${data[0].ownership_form ? data[0].ownership_form : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Payment method: ${data[0].payment_method ? data[0].payment_method : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>About me: ${data[0].about_me ? data[0].about_me : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Portfolio: ${data[0].portfolio ? data[0].portfolio : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                            `<p>Image: ${data[0].image ? `<img src="${data[0].image}" alt="Image" width="200">` : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Review: ${data[0].review ? data[0].review : 'Не указано'}</p>`
+                            );
+                        } else if (type === 'customer') {
+                            $('#userInfo').append(
+                                `<p>Username: ${data[0].user.username ? data[0].user.username : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>First name: ${data[0].user.first_name ? data[0].user.first_name : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Last name: ${data[0].user.last_name ? data[0].user.last_name : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Email: ${data[0].user.email ? data[0].user.email : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Payment: ${data[0].payment ? data[0].payment : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Experience: ${data[0].experience ? data[0].experience : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Contact Phone: ${data[0].contact_phone ? data[0].contact_phone : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Ownership form: ${data[0].ownership_form ? data[0].ownership_form : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>About us: ${data[0].about_us ? data[0].about_us : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                            `<p>Logo: ${data[0].logo ? `<img src="${data[0].logo}" alt="Logo" width="200">` : 'Не указано'}</p>`
+                            );
+                            $('#userInfo').append(
+                                `<p>Review: ${data[0].review ? data[0].review : 'Не указано'}</p>`
+                            );
+                    } else {
+                        console.log("Пользователь не зарегистрирован")
+                    }
+                },
+                error: function () {
+                    $('#userInfo').html('<p>Произошла ошибка при загрузке данных.</p>');
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

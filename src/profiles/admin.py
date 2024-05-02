@@ -25,7 +25,7 @@ class FreelancerAdmin(admin.ModelAdmin):
     fieldsets = [
         ('General Information', {
             'fields': (
-                'user_first_name', 'user_last_name', 'user_email',
+                'user', 'user_first_name', 'user_last_name', 'user_email',
             ),
         }),
         ('Work Information', {
@@ -83,7 +83,7 @@ class CustomerAdmin(admin.ModelAdmin):
     fieldsets = [
         ('General Information', {
             'fields': (
-                'user_username', 'user_first_name', 'user_last_name', 'user_email',
+                'user', 'user_username', 'user_first_name', 'user_last_name', 'user_email',
             ),
         }),
         ('Work Information', {
